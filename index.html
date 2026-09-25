@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AERO-FPV // Мир FPV дронов & BetaFPV Pavo25 Cinewhoop</title>
+  <meta name="description" content="Инженерный многоязычный портал об FPV-дронах, аэронавтике, классификации БПЛА, пошаговой сборке и детальный 3D обзор кастомного Cinewhoop дрона BetaFPV Pavo25.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f0ff'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP FIXED NAVIGATION BAR & CONTROLS
+       ========================================================================== -->
+  <header class="header-nav">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo" id="brand-logo-link">
+        <div class="logo-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="logo-text" data-i18n="nav_title">AERO-FPV // ТЕХНОЛОГИИ БПЛА</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-links">
+        <li><a href="#about-drone" class="nav-link" data-i18n="nav_about_drone">Что такое дрон?</a></li>
+        <li><a href="#drone-types" class="nav-link" data-i18n="nav_drone_types">Типы дронов</a></li>
+        <li><a href="#what-is-fpv" class="nav-link" data-i18n="nav_what_is_fpv">Что такое FPV?</a></li>
+        <li><a href="#my-drone" class="nav-link" data-i18n="nav_my_drone">Мой FPV-дрон</a></li>
+        <li><a href="#assembly-guide" class="nav-link" data-i18n="nav_assembly">Сборка дрона</a></li>
+        <li><a href="#final-3d-model" class="nav-link" data-i18n="nav_final_model">3D Дрон в сборе</a></li>
+      </ul>
+
+      <!-- Controls: OSD Mode, Audio & Multilingual Switcher -->
+      <div class="nav-controls">
+        <button id="btn-osd-toggle" class="btn-hud-control" title="FPV Goggle OSD View">
+          <span>🕶️</span>
+          <span class="control-label" data-i18n="nav_osd_toggle">HUD OSD Режим</span>
+        </button>
+
+        <button id="btn-sound-toggle" class="btn-hud-control" title="Toggle Sound FX">
+          <span>🔊</span>
+          <span class="sound-label">ON</span>
+        </button>
+
+        <!-- RU / UZ / EN Switcher -->
+        <div class="lang-switcher" role="group" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="uz">UZ</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="section-badge corner-brackets" data-i18n="hero_badge">FPV AEROSPACE & ENGINEERING</div>
+          <h1 class="hero-title" data-i18n="hero_title">
+            ПОГРУЖЕНИЕ В МИР <span class="gradient-text">FPV ДРОНОВ</span>
+          </h1>
+          <p class="hero-lead" data-i18n="hero_subtitle">
+            Инженерный путеводитель по беспилотным летательным аппаратам, искусству пилотирования от первого лица и детальный разбор кастомного Cinewhoop-дрона <strong>BetaFPV Pavo25</strong>.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#final-3d-model" class="btn-primary" id="hero-btn-explore">
+              <span data-i18n="hero_btn_explore">Исследовать дрон 3D</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#my-drone" class="btn-secondary" id="hero-btn-components">
+              <span data-i18n="hero_btn_components">Комплектующие</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
+          </div>
+
+          <!-- Live Simulated Telemetry HUD -->
+          <div class="hero-telemetry-hud corner-brackets">
+            <div class="telem-item">
+              <span class="telem-k">BATT VOLTAGE</span>
+              <span class="telem-v osd-volt-val" data-i18n="hero_telemetry_voltage">15.8V [4S]</span>
+            </div>
+            <div class="telem-item">
+              <span class="telem-k">LINK RSSI</span>
+              <span class="telem-v osd-rssi-val" data-i18n="hero_telemetry_rssi">RSSI: 99%</span>
+            </div>
+            <div class="telem-item">
+              <span class="telem-k">FLIGHT MODE</span>
+              <span class="telem-v" data-i18n="hero_telemetry_mode">РЕЖИМ: ACRO</span>
+            </div>
+            <div class="telem-item">
+              <span class="telem-k">GNSS LOCK</span>
+              <span class="telem-v" data-i18n="hero_telemetry_sat">СПУТНИКИ: 14</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Drone Photo (User's real Pavo25 on grass with glowing LED!) -->
+        <div class="hero-visual-card corner-brackets">
+          <img src="assets/images/user/user_pavo25_grass_led.jpg" alt="BetaFPV Pavo25 Cinewhoop" class="hero-drone-photo">
+          <div class="hero-overlay-tag">
+            <h4>BetaFPV Pavo25 Cinewhoop</h4>
+            <p>Custom Neon LED Duct System // Field Ready</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 01: WHAT IS A DRONE?
+         ========================================================================== -->
+    <section class="sec-about" id="about-drone">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec1_badge">РАЗДЕЛ 01 // ОСНОВЫ АЭРОНАВТИКИ</div>
+        <h2 class="section-title" data-i18n="sec1_title">Что такое дрон?</h2>
+
+        <div class="about-intro-grid">
+          <div class="about-text-lead" data-i18n="sec1_lead">
+            Беспилотный летательный аппарат (БПЛА / UAV — Unmanned Aerial Vehicle) — это воздушное судно, выполняющее полёт без экипажа на борту.
+          </div>
+          <div class="about-text-details">
+            <p data-i18n="sec1_p1">
+              Управление дроном осуществляется либо дистанционно человеком-пилотом через радиоканал управления, либо полностью автономно с помощью бортового полётного микрокомпьютера, датчиков позиционирования (акселерометры, гироскопы, барометры) и спутниковых систем GPS/ГЛОНАСС.
+            </p>
+            <p data-i18n="sec1_p2">
+              В основе полёта многороторного дрона лежит точное распределение тяги между электромоторами. Бортовой контроллер производит тысячи расчётов в секунду (PID-алгоритмы), мгновенно компенсируя ветер, турбулентность и удерживая аппарат в стабильном равновесии.
+            </p>
+          </div>
+        </div>
+
+        <!-- Civil & Peaceful Applications -->
+        <h3 class="section-title" style="font-size: 24px; margin-top: 40px; margin-bottom: 8px;" data-i18n="sec1_civ_title">
+          Мирные и гражданские сферы применения
+        </h3>
+        <p class="section-subtitle" style="margin-bottom: 32px;" data-i18n="sec1_civ_desc">
+          Современные БПЛА совершили технологическую революцию в десятках отраслей человеческой деятельности:
+        </p>
+
+        <div class="applications-grid">
+          <!-- App 1: Cinematography -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">🎬</div>
+            <h3 data-i18n="sec1_app1_title">Аэросъёмка и киноиндустрия</h3>
+            <p data-i18n="sec1_app1_desc">Создание динамичных кинематографических кадров, прямые трансляции спортивных событий, съёмка пейзажей и архитектуры с недоступных ранее ракурсов.</p>
+          </div>
+
+          <!-- App 2: Search & Rescue -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">🦺</div>
+            <h3 data-i18n="sec1_app2_title">Поисково-спасательные операции</h3>
+            <p data-i18n="sec1_app2_desc">Поиск пропавших людей в горах, лесах и зонах стихийных бедствий с помощью тепловизоров, ночных камер и ретрансляторов связи.</p>
+          </div>
+
+          <!-- App 3: Agriculture -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">🌾</div>
+            <h3 data-i18n="sec1_app3_title">Сельское хозяйство</h3>
+            <p data-i18n="sec1_app3_desc">Мультиспектральный мониторинг здоровья растений, обнаружение очагов засухи, точечное внесение удобрений и биозащиты без повреждения посевов.</p>
+          </div>
+
+          <!-- App 4: Cartography -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">🗺️</div>
+            <h3 data-i18n="sec1_app4_title">Геодезия и картография</h3>
+            <p data-i18n="sec1_app4_desc">Лазерное сканирование (LiDAR), фотограмметрия, быстрое построение цифровых 3D-моделей рельефа и кадастровая съёмка высокой точности.</p>
+          </div>
+
+          <!-- App 5: Inspection -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">⚡</div>
+            <h3 data-i18n="sec1_app5_title">Инспекция инфраструктуры</h3>
+            <p data-i18n="sec1_app5_desc">Безопасное обследование высоковольтных ЛЭП, ветрогенераторов, мостов, плотин, солнечных электростанций и высотных фасадов зданий.</p>
+          </div>
+
+          <!-- App 6: Delivery -->
+          <div class="app-card corner-brackets">
+            <div class="app-icon-wrap">📦</div>
+            <h3 data-i18n="sec1_app6_title">Экология и доставка</h3>
+            <p data-i18n="sec1_app6_desc">Учёт диких животных в заповедниках, контроль очагов лесных пожаров, экспресс-доставка медикаментов и проб в труднодоступные районы.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 02: DRONE TYPES
+         ========================================================================== -->
+    <section class="sec-types" id="drone-types">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec2_badge">РАЗДЕЛ 02 // КЛАССИФИКАЦИЯ АППАРАТОВ</div>
+        <h2 class="section-title" data-i18n="sec2_title">Какие бывают дроны?</h2>
+        <p class="section-subtitle" data-i18n="sec2_subtitle">
+          Современный мир БПЛА делится на классы в зависимости от аэродинамической схемы, назначения и характеристик.
+        </p>
+
+        <!-- Category Filter Tabs -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all" data-i18n="sec2_filter_all">Все типы</button>
+          <button class="filter-btn" data-filter="multirotor" data-i18n="sec2_filter_multirotor">Многороторные</button>
+          <button class="filter-btn" data-filter="fpv" data-i18n="sec2_filter_fpv">FPV & Гонки</button>
+          <button class="filter-btn" data-filter="aerodynamic" data-i18n="sec2_filter_aerodynamic">Самолётные & VTOL</button>
+        </div>
+
+        <div class="types-grid" id="drone-types-grid">
+          <!-- 1. FPV Drones -->
+          <div class="drone-type-card corner-brackets" data-category="fpv multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/user/drone_freestyle_5inch.jpg" alt="FPV Drone Freestyle">
+              <span class="card-badge-motors" data-i18n="sec2_type_fpv_motors">4 мотора (Quadcopter)</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_fpv_title">FPV-дроны (Freestyle & Cinematic)</h3>
+              <p class="card-desc" data-i18n="sec2_type_fpv_desc">Скоростные маневренные дроны, управляемые пилотом в реальном времени через специальные видеоочки с видом «из кабины».</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_fpv_feat">Полный ручной контроль (Acro mode), экстремальная динамика, разгон до 150+ км/ч, акробатические трюки.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_fpv_use">Экшн-видеография, экстремальный фристайл, трюки, гонки.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Camera Drones -->
+          <div class="drone-type-card corner-brackets" data-category="multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/camera_drone.jpg" alt="Camera Drone">
+              <span class="card-badge-motors" data-i18n="sec2_type_camera_motors">4 мотора (Quadcopter)</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_camera_title">Камерные / потребительские дроны</h3>
+              <p class="card-desc" data-i18n="sec2_type_camera_desc">Автоматизированные летающие платформы со стабилизированной 3-осевой подвесной камерой высокого разрешения (4K/8K).</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_camera_feat">GPS-удержание точки, сенсоры предотвращения препятствий, автоматический возврат домой (RTH), простота управления.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_camera_use">Фото/видеосъёмка, туризм, видеоблогинг, семейные архивы.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Racing Drones -->
+          <div class="drone-type-card corner-brackets" data-category="fpv multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/racing_drone.jpg" alt="Racing Drone">
+              <span class="card-badge-motors" data-i18n="sec2_type_racing_motors">4 высокооборотистых мотора</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_racing_title">Гоночные дроны (Drone Racing)</h3>
+              <p class="card-desc" data-i18n="sec2_type_racing_desc">Специализированные сверхлёгкие FPV-болиды, спроектированные исключительно для максимального ускорения и победы на трассе.</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_racing_feat">Карбоновое шасси минимального веса, соотношение тяги к весу более 10:1, разгон 0-100 км/ч менее чем за 1.5 секунды.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_racing_use">Профессиональные спортивные чемпионаты и кибер-лиги по дрон-рейсингу.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Cinewhoop Drones -->
+          <div class="drone-type-card corner-brackets" data-category="fpv multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/user/drone_tinywhoop.jpg" alt="Cinewhoop Ducted Drone">
+              <span class="card-badge-motors" data-i18n="sec2_type_cinewhoop_motors">4 мотора (pusher-компоновка)</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_cinewhoop_title">Cinewhoop-дроны (Безопасные синематик-дроны)</h3>
+              <p class="card-desc" data-i18n="sec2_type_cinewhoop_desc">Компактные FPV-коптеры с кольцевой защитой пропеллеров (дакты), оптимизированные для плавной кинематографической видеосъёмки.</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_cinewhoop_feat">Защита винтов позволяет безопасно летать близко к людям, внутри помещений, в проёмах и узких коридорах.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_cinewhoop_use">Интерьерная съёмка, коммерческие ролики, динамичные пролёты вокруг актёров и объектов.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Quadcopters Classic -->
+          <div class="drone-type-card corner-brackets" data-category="multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/quadcopter.jpg" alt="Quadcopter">
+              <span class="card-badge-motors" data-i18n="sec2_type_quad_motors">4 мотора</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_quad_title">Квадрокоптеры (Классические)</h3>
+              <p class="card-desc" data-i18n="sec2_type_quad_desc">Самая распространённая конфигурация многороторных БПЛА с четырьмя несущими винтами (два вращаются по часовой, два против).</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_quad_feat">Оптимальный баланс между механической простотой, эффективностью энергопотребления, весом и стоимостью.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_quad_use">Потребительские дроны, FPV, учебные платформы, мониторинг.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Hexacopters -->
+          <div class="drone-type-card corner-brackets" data-category="multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/hexacopter_drone.jpg" alt="Hexacopter">
+              <span class="card-badge-motors" data-i18n="sec2_type_hexa_motors">6 моторов</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_hexa_title">Гексакоптеры</h3>
+              <p class="card-desc" data-i18n="sec2_type_hexa_desc">Дроны с шестью несущими роторами, расположенными по кругу на отдельных лучах.</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_hexa_feat">Повышенная грузоподъёмность и отказоустойчивость: при отказе одного мотора или пропеллера дрон способен безопасно приземлиться.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_hexa_use">Профессиональная кинематография с тяжёлыми кинокамерами (RED, ARRI), индустриальный аудит.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Octocopters -->
+          <div class="drone-type-card corner-brackets" data-category="multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/octocopter.jpg" alt="Octocopter">
+              <span class="card-badge-motors" data-i18n="sec2_type_octo_motors">8 моторов (или 4 луча соосно X8)</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_octo_title">Октокоптеры</h3>
+              <p class="card-desc" data-i18n="sec2_type_octo_desc">Тяжёлые промышленные восьмимоторные мультикоптеры (звездообразные либо соосные X8).</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_octo_feat">Максимальная стабильность при ветровых нагрузках, дублирование систем, подъём полезной нагрузки до 15-30+ кг.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_octo_use">Геодезические комплексы с LiDAR, спасательные платформы, опрыскивание полей.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Fixed-Wing UAVs -->
+          <div class="drone-type-card corner-brackets" data-category="aerodynamic">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/fixed_wing.jpg" alt="Fixed-Wing UAV">
+              <span class="card-badge-motors" data-i18n="sec2_type_fixed_motors">1-2 тянущих или толкающих мотора</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_fixed_title">Самолётные БПЛА (Fixed-Wing)</h3>
+              <p class="card-desc" data-i18n="sec2_type_fixed_desc">Беспилотные самолёты с неподвижным крылом, создающим подъёмную силу за счёт набегающего потока воздуха.</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_fixed_feat">Высокая аэродинамическая эффективность, дальность полёта в десятки и сотни километров, время в воздухе от 1 до 5+ часов.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_fixed_use">Картографирование огромных территорий, мониторинг протяжённых трубопроводов и границ.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. VTOL Drones -->
+          <div class="drone-type-card corner-brackets" data-category="aerodynamic multirotor">
+            <div class="card-img-wrap">
+              <img src="assets/images/drones/vtol_drone.jpg" alt="VTOL Drone">
+              <span class="card-badge-motors" data-i18n="sec2_type_vtol_motors">3-5 моторов (поворотные / раздельные)</span>
+            </div>
+            <div class="card-content">
+              <h3 data-i18n="sec2_type_vtol_title">VTOL-дроны (Вертикальный взлёт и посадка)</h3>
+              <p class="card-desc" data-i18n="sec2_type_vtol_desc">Гибридные аппараты, объединяющие вертикальный взлёт/посадку мультикоптера и скоростной экономичный полёт самолёта.</p>
+              <div class="card-specs-list">
+                <div class="spec-line">
+                  <strong>Особенности:</strong>
+                  <span data-i18n="sec2_type_vtol_feat">Не требуют взлётно-посадочной полосы или катапульты; в полёте переходят в горизонтальный самолётный режим.</span>
+                </div>
+                <div class="spec-line">
+                  <strong>Применение:</strong>
+                  <span data-i18n="sec2_type_vtol_use">Дальняя экспресс-доставка грузов, морской мониторинг с кораблей, спасательные службы.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 03: WHAT IS AN FPV DRONE?
+         ========================================================================== -->
+    <section class="sec-fpv-architecture" id="what-is-fpv">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec3_badge">РАЗДЕЛ 03 // ТЕХНОЛОГИЯ FIRST PERSON VIEW</div>
+        <h2 class="section-title" data-i18n="sec3_title">Что такое FPV-дрон?</h2>
+        <p class="section-subtitle" data-i18n="sec3_lead">
+          FPV (First Person View) переводится как «вид от первого лица». Пилот надевает видеоочки или шлем и видит полёт точно так же, как если бы сам сидел в кабине крошечного летательного аппарата.
+        </p>
+
+        <!-- Signal Chains Schematics -->
+        <h3 class="section-title" style="font-size: 24px; margin-bottom: 24px;" data-i18n="sec3_schematics_title">
+          Инженерные схемы радиосигналов
+        </h3>
+
+        <!-- 1. Video Transmission Chain -->
+        <div class="schematic-box corner-brackets">
+          <div class="schematic-header">
+            <h3 data-i18n="sec3_scheme1_title">1. Схема передачи видеосигнала (Video Link)</h3>
+            <p data-i18n="sec3_scheme1_sub">Минимальная задержка (15-28 мс) на частоте 5.8 GHz для мгновенной реакции пилота</p>
+          </div>
+
+          <div class="signal-chain" id="video-chain">
+            <div class="chain-step">
+              <div class="step-node-icon">📹</div>
+              <div class="step-node-title" data-i18n="sec3_scheme1_step1">FPV-камера</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme1_step1_d">Захват изображения объективом и сверхбыстрая оцифровка матрицы</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">📡</div>
+              <div class="step-node-title" data-i18n="sec3_scheme1_step2">Видеопередатчик (VTX)</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme1_step2_d">Модуляция и усиление радиосигнала 5.8 GHz (25-400+ mW)</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">🥽</div>
+              <div class="step-node-title" data-i18n="sec3_scheme1_step3">FPV-очки / Шлем</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme1_step3_d">Приём двумя антеннами (Diversity) и вывод на микро-OLED экраны</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">🧑‍✈️</div>
+              <div class="step-node-title" data-i18n="sec3_scheme1_step4">Пилот</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme1_step4_d">Молниеносный визуальный контроль и принятие решений</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Control Command Chain -->
+        <div class="schematic-box corner-brackets">
+          <div class="schematic-header">
+            <h3 data-i18n="sec3_scheme2_title">2. Схема радиоуправления аппаратом (RC Control Link)</h3>
+            <p data-i18n="sec3_scheme2_sub">Протоколы сверхнизкой задержки (ExpressLRS 2.4GHz / 500-1000Hz пакетов в сек)</p>
+          </div>
+
+          <div class="signal-chain" id="control-chain">
+            <div class="chain-step">
+              <div class="step-node-icon">🎮</div>
+              <div class="step-node-title" data-i18n="sec3_scheme2_step1">Пульт управления</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme2_step1_d">Стики на датчиках Холла считывают команды пилота</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">📻</div>
+              <div class="step-node-title" data-i18n="sec3_scheme2_step2">Радиоприёмник (RX)</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme2_step2_d">Принимает пакеты данных по протоколу ELRS/CRSF</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">🧠</div>
+              <div class="step-node-title" data-i18n="sec3_scheme2_step3">Flight Controller (FC)</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme2_step3_d">Гироскоп опрашивается на частоте 8 kHz, PID вычисляет коррекцию</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">⚡</div>
+              <div class="step-node-title" data-i18n="sec3_scheme2_step4">ESC (Регулятор)</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme2_step4_d">ШИМ/DShot протокол передаёт напряжение на фазы моторов</div>
+            </div>
+            <div class="chain-arrow">→</div>
+            <div class="chain-step">
+              <div class="step-node-icon">🌀</div>
+              <div class="step-node-title" data-i18n="sec3_scheme2_step5">Моторы</div>
+              <div class="step-node-desc" data-i18n="sec3_scheme2_step5_d">Вращают пропеллеры до 35 000+ об/мин, создавая вектор тяги</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 Core Components Deep Dive -->
+        <h3 class="section-title" style="font-size: 24px; margin-top: 50px; margin-bottom: 6px;" data-i18n="sec3_roles_title">
+          Анатомия комплектующих FPV-дрона
+        </h3>
+        <p class="section-subtitle" style="margin-bottom: 30px;" data-i18n="sec3_roles_sub">
+          Роль каждого ключевого элемента в радиоэлектронной системе БПЛА
+        </p>
+
+        <div class="components-deep-grid">
+          <div class="comp-role-card corner-brackets">
+            <h4><span>📹</span> <span data-i18n="comp_cam_title">FPV-камера</span></h4>
+            <p data-i18n="comp_cam_desc">Глаза пилота. Использует быстрые матрицы с широким динамическим диапазоном (WDR) и углом обзора FOV 130-160° для моментальной оценки препятствий при любом освещении.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>📡</span> <span data-i18n="comp_vtx_title">Видеопередатчик (VTX)</span></h4>
+            <p data-i18n="comp_vtx_desc">Генерирует и передаёт видеосигнал на частоте 5.8 GHz. Оснащён контролем мощности (SmartAudio) для переключения между 25, 100, 200 и 400+ мВт.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🥽</span> <span data-i18n="comp_goggles_title">FPV-очки / Видеошлем</span></h4>
+            <p data-i18n="comp_goggles_desc">Приёмник видеосигнала со встроенными экранами, диверсити-модулем, всенаправленными и патч-антеннами для надёжной связи за препятствиями.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>📻</span> <span data-i18n="comp_rx_title">Радиоприёмник (Receiver)</span></h4>
+            <p data-i18n="comp_rx_desc">Компактная плата (ExpressLRS или TBS Crossfire), принимающая управляющие команды с частотой обновления до 500-1000 Гц и дальностью в километры.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🎮</span> <span data-i18n="comp_tx_title">Пульт управления (Transmitter)</span></h4>
+            <p data-i18n="comp_tx_desc">Главный орган контроля пилота. Высокоточные стики на датчиках Холла, эргономичный корпус и протокол радиопередачи с низкой задержкой.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🧠</span> <span data-i18n="comp_fc_title">Flight Controller</span></h4>
+            <p data-i18n="comp_fc_desc">Мозг дрона на базе микроконтроллера STM32 (F4/F7/H7). Оснащён гироскопом/акселерометром (IMU), барометром, OSD чипом и прошивкой Betaflight.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>⚡</span> <span data-i18n="comp_esc_title">ESC (Регулятор скорости)</span></h4>
+            <p data-i18n="comp_esc_desc">Электронные ключи (MOSFET-транзисторы), преобразующие постоянный ток аккумулятора в 3-фазный переменный ток для плавного вращения моторов по протоколу DShot.</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🌀</span> <span data-i18n="comp_motors_title">Бесколлекторные моторы</span></h4>
+            <p data-i18n="comp_motors_desc">Электродвигатели высокой мощности без щеточных узлов. Характеризуются типоразмером статора (например, 1404) и показателем KV (обороты на вольт).</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🛸</span> <span data-i18n="comp_props_title">Пропеллеры</span></h4>
+            <p data-i18n="comp_props_desc">Преобразуют вращающий момент в подъёмную тягу. Различаются диаметром, шагом винта и количеством лопастей (3-лопастные D63 для тихой плавной тяги).</p>
+          </div>
+
+          <div class="comp-role-card corner-brackets">
+            <h4><span>🔋</span> <span data-i18n="comp_battery_title">LiPo Аккумулятор</span></h4>
+            <p data-i18n="comp_battery_desc">Литий-полимерный источник питания с высокой токоотдачей (75C-120C). Напряжение определяется числом банок (3S = 11.1V, 4S = 14.8V).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 04: MY FPV DRONE (BETAFPV PAVO25)
+         ========================================================================== -->
+    <section class="sec-my-drone" id="my-drone">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec4_badge">РАЗДЕЛ 04 // МОЙ ПЕРСОНАЛЬНЫЙ АППАРАТ</div>
+        <h2 class="section-title" data-i18n="sec4_title">Мой FPV-дрон: BetaFPV Pavo25</h2>
+        <p class="section-subtitle" data-i18n="sec4_subtitle">
+          Реальный кастомный синевуп на базе оригинальных компонентов BetaFPV с неоновой подсветкой дактов для кинематографичных полётов.
+        </p>
+
+        <!-- User Real Photo Banner -->
+        <div class="my-drone-real-banner corner-brackets">
+          <div class="banner-img-container">
+            <img src="assets/images/user/user_pavo25_grass_led.jpg" alt="BetaFPV Pavo25 with glowing LED ring">
+            <div class="banner-overlay-caption">
+              <h3 data-i18n="sec4_real_banner_title">Оригинальная фотография моего дрона</h3>
+              <p data-i18n="sec4_real_banner_sub">BetaFPV Pavo25 со светящимся неоновым контуром LED в полевых условиях</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Components Catalog Grid (Cropped from user's replacement parts image) -->
+        <h3 class="section-title" style="font-size: 22px; margin-bottom: 24px;" data-i18n="sec4_grid_spec_title">
+          Таблица оригинальных комплектующих (по фото)
+        </h3>
+
+        <div class="parts-spec-grid">
+          <!-- Frame -->
+          <div class="part-card corner-brackets" data-part-id="frame">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_frame.jpg" alt="Pavo25 Frame Kit">
+            </div>
+            <h4 data-i18n="my_part_frame_t">Рама: BetaFPV Pavo25 Frame Kit</h4>
+            <p data-i18n="my_part_frame_d">Прочный аэродинамический корпус из полиамида PA12 с литыми дактами защиты пропеллеров, карбоновой пластиной 2.5 мм и толкающей геометрией (pusher). Колёсная база 108 мм.</p>
+            <div class="part-spec-tag" data-i18n="my_part_frame_spec">Колёсная база: 108 мм | PA12 + Carbon | ~68 г</div>
+          </div>
+
+          <!-- FC + ESC -->
+          <div class="part-card corner-brackets" data-part-id="fc">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_fc_esc.jpg" alt="F405 20A AIO">
+            </div>
+            <h4 data-i18n="my_part_fc_t">FC + ESC: BetaFPV F405 AIO 20A V4</h4>
+            <p data-i18n="my_part_fc_d">Высокоинтегрированная плата 'всё-в-одном': полётный контроллер на STM32F405 в связке с 4-в-1 регулятором 20A (пиковый 25A) BLHeli_S/Bluejay для питания 2-4S.</p>
+            <div class="part-spec-tag" data-i18n="my_part_fc_spec">STM32F405 | ESC 20A BLHeli_S | 2S-4S LiPo</div>
+          </div>
+
+          <!-- Motors -->
+          <div class="part-card corner-brackets" data-part-id="motor">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_motor.jpg" alt="1404 4500KV Motors">
+            </div>
+            <h4 data-i18n="my_part_motor_t">Моторы: BetaFPV 1404 4500KV (4 шт)</h4>
+            <p data-i18n="my_part_motor_d">Фирменные моторы с двухцветным анодированием. Оптимальный крутящий момент и энергоэффективность для 2.5-дюймовых винтов в дактах на питании 3S/4S.</p>
+            <div class="part-spec-tag" data-i18n="my_part_motor_spec">KV: 4500KV | Статор: 14x4 мм | Вал: 1.5 мм</div>
+          </div>
+
+          <!-- Props -->
+          <div class="part-card corner-brackets" data-part-id="props">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_props.jpg" alt="Gemfan D63 Props">
+            </div>
+            <h4 data-i18n="my_part_props_t">Пропеллеры: Gemfan D63 3-Blade</h4>
+            <p data-i18n="my_part_props_d">Специализированные малошумные 3-лопастные винты 63 мм, создающие увеличенную тягу в кольцевых воздуховодах и плавное управление на малом газу.</p>
+            <div class="part-spec-tag" data-i18n="my_part_props_spec">Диаметр: 63 мм | Шаг: 1.5' | T-Mount 1.5 мм</div>
+          </div>
+
+          <!-- Camera -->
+          <div class="part-card corner-brackets" data-part-id="cam">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_camera.jpg" alt="Nano FPV Camera">
+            </div>
+            <h4 data-i18n="my_part_cam_t">FPV-камера: Nano Camera</h4>
+            <p data-i18n="my_part_cam_d">Ультралёгкая аналоговая камера нано-формата с минимальной задержкой, естественной цветопередачей и регулируемым углом наклона в TPU-бампере.</p>
+            <div class="part-spec-tag" data-i18n="my_part_cam_spec">1200 TVL | CMOS | FOV: 160° | 3.5 г</div>
+          </div>
+
+          <!-- VTX -->
+          <div class="part-card corner-brackets" data-part-id="vtx">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_vtx.jpg" alt="Tiny Rocket VTX">
+            </div>
+            <h4 data-i18n="my_part_vtx_t">Видеопередатчик: Tiny Rocket VTX</h4>
+            <p data-i18n="my_part_vtx_d">Компактный видеопередатчик с регулируемой мощностью до 400 мВт и поддержкой SmartAudio для настройки каналов и частот прямо с пульта через экранное меню.</p>
+            <div class="part-spec-tag" data-i18n="my_part_vtx_spec">5.8 GHz | 25-400 mW | SmartAudio</div>
+          </div>
+
+          <!-- LED Strip -->
+          <div class="part-card corner-brackets" data-part-id="led">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_led_blue.jpg" alt="Neon LED Strip">
+            </div>
+            <h4 data-i18n="my_part_led_t">LED подсветка: Pavo25 Neon Strip</h4>
+            <p data-i18n="my_part_led_d">Гибкая яркая светодиодная лента (бирюзовая / синяя и красная), огибающая кольца дактов. Придаёт футуристичный вид и облегчает визуальную ориентацию в сумерках.</p>
+            <div class="part-spec-tag" data-i18n="my_part_led_spec">Бирюзовый / Красный | 5V DC | Контур дактов</div>
+          </div>
+
+          <!-- Battery -->
+          <div class="part-card corner-brackets" data-part-id="battery">
+            <div class="part-img-holder">
+              <img src="assets/images/user/parts/part_battery.jpg" alt="4S 850mAh Battery">
+            </div>
+            <h4 data-i18n="my_part_bat_t">Аккумулятор: 4S 850mAh 75C LiPo</h4>
+            <p data-i18n="my_part_bat_d">Высокотоковый литий-полимерный аккумулятор с разъёмом XT30. Обеспечивает до 6-8 минут уверенного плавного полёта с установленной экшн-камерой.</p>
+            <div class="part-spec-tag" data-i18n="my_part_bat_spec">850 mAh | 14.8V (4S) | 75C/150C | XT30</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 05: 13-STEP ASSEMBLY GUIDE
+         ========================================================================== -->
+    <section class="sec-assembly" id="assembly-guide">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec5_badge">РАЗДЕЛ 05 // ТЕХНОЛОГИЧЕСКИЙ ПРОЦЕСС</div>
+        <h2 class="section-title" data-i18n="sec5_title">Как собирается FPV-дрон?</h2>
+        <p class="section-subtitle" data-i18n="sec5_subtitle">
+          Пошаговый 13-этапный инженерный регламент сборки, пайки, настройки и проверки безопасности Cinewhoop-дрона.
+        </p>
+
+        <!-- Interactive Assembly Wizard Card -->
+        <div class="assembly-wizard-card corner-brackets">
+          <!-- Step Selector Chips (1 to 13) -->
+          <div class="steps-nav-bar" id="assembly-steps-nav"></div>
+
+          <!-- Progress Bar Indicator -->
+          <div class="assembly-progress-wrapper">
+            <div class="progress-track">
+              <div class="progress-fill" id="assembly-progress-fill"></div>
+            </div>
+            <div class="progress-percent" id="assembly-progress-text">8%</div>
+          </div>
+
+          <!-- Main Interactive Assembly Viewer -->
+          <div class="assembly-main-grid">
+            <!-- Left: Technical Vector Schematic Frame -->
+            <div class="schematic-viewer-frame corner-brackets" id="assembly-schematic-view"></div>
+
+            <!-- Right: Step Descriptions & Tips -->
+            <div class="assembly-details-box">
+              <span class="step-badge-counter" id="assembly-step-badge">ЭТАП 1 / 13</span>
+              <h3 class="assembly-step-h3" id="assembly-step-title">1. Подготовка и сборка рамы</h3>
+              <p class="assembly-step-body" id="assembly-step-desc">Распаковка комплекта Pavo25 Frame Kit...</p>
+
+              <!-- Engineering Tip Box -->
+              <div class="engineering-tip-box">
+                <strong data-i18n="sec5_tech_note">Инженерная рекомендация:</strong>
+                <p id="assembly-step-note">Обязательно используйте антивибрационные силиконовые втулки...</p>
+              </div>
+
+              <!-- Tools Needed Box -->
+              <div class="tools-needed-box">
+                <strong data-i18n="sec5_tools_needed">Необходимый инструмент & материалы:</strong>
+                <span id="assembly-step-tools">Шестигранные отвёртки M2...</span>
+              </div>
+
+              <!-- Navigation Prev / Next Buttons -->
+              <div class="assembly-nav-buttons">
+                <button class="btn-nav-step" id="btn-step-prev" data-i18n="sec5_btn_prev">← Предыдущий шаг</button>
+                <button class="btn-nav-step" id="btn-step-next" data-i18n="sec5_btn_next">Следующий шаг →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 06: FINAL 3D MODEL & MULTI-ANGLE VIEWER
+         ========================================================================== -->
+    <section class="sec-final-3d" id="final-3d-model">
+      <div class="container">
+        <div class="section-badge corner-brackets" data-i18n="sec6_badge">РАЗДЕЛ 06 // ИНТЕРАКТИВНАЯ 3D ВИЗУАЛИЗАЦИЯ</div>
+        <h2 class="section-title" data-i18n="sec6_title">Мой готовый FPV-дрон в сборе</h2>
+        <p class="section-subtitle" data-i18n="sec6_subtitle">
+          Интерактивная 3D-модель кастомного BetaFPV Pavo25 с вращением 360°, переключением ракурсов и демонстрацией в разобранном виде (Exploded View).
+        </p>
+
+        <!-- 3D Three.js Canvas Container -->
+        <div class="drone-3d-wrapper corner-brackets">
+          <div class="ctrl-hint-text" data-i18n="ctrl_hint">
+            Управление: зажмите ЛКМ для вращения модели, колесо мыши для зума, ПКМ для панорамирования.
+          </div>
+
+          <div id="drone-3d-canvas-container"></div>
+          <div id="drone-hotspots-container"></div>
+
+          <!-- Floating Viewpoints & Animation Controls -->
+          <div class="drone-3d-control-bar">
+            <button class="btn-3d-ctrl" id="btn-view-front" data-i18n="btn_view_front">Спереди</button>
+            <button class="btn-3d-ctrl" id="btn-view-rear" data-i18n="btn_view_rear">Сзади</button>
+            <button class="btn-3d-ctrl" id="btn-view-top" data-i18n="btn_view_top">Сверху</button>
+            <button class="btn-3d-ctrl" id="btn-view-side" data-i18n="btn_view_side">Сбоку</button>
+            <button class="btn-3d-ctrl special-explode" id="btn-view-exploded" data-i18n="btn_view_exploded">💥 Разобранный вид (Exploded)</button>
+            <button class="btn-3d-ctrl" id="btn-view-reset" data-i18n="btn_view_reset">Сброс камеры</button>
+            <button class="btn-3d-ctrl" id="btn-led-toggle" data-i18n="ctrl_led_toggle">LED: Смена цвета</button>
+            <button class="btn-3d-ctrl active" id="btn-props-toggle" data-i18n="ctrl_props_toggle">Вращение винтов</button>
+          </div>
+        </div>
+
+        <!-- Performance Specs Blueprint Table -->
+        <div class="specs-blueprint-card corner-brackets">
+          <h3 data-i18n="hud_specs_title">Сводные лётно-технические характеристики</h3>
+
+          <div class="specs-blueprint-grid">
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">⚖️</span>
+              <span class="spec-bp-text" data-i18n="spec_takeoff_weight">Взлётный вес (с 4S 850mAh): ~185 г</span>
+            </div>
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">⏱️</span>
+              <span class="spec-bp-text" data-i18n="spec_flight_time">Время полёта: 6-8 минут</span>
+            </div>
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">🚀</span>
+              <span class="spec-bp-text" data-i18n="spec_max_speed">Максимальная скорость: ~105 км/ч</span>
+            </div>
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">📡</span>
+              <span class="spec-bp-text" data-i18n="spec_control_range">Дальность радиосвязи ELRS: до 3+ км</span>
+            </div>
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">📺</span>
+              <span class="spec-bp-text" data-i18n="spec_video_system">Видеолинк: 5.8 GHz Analog 400mW</span>
+            </div>
+            <div class="spec-blueprint-item">
+              <span class="spec-bp-icon">💻</span>
+              <span class="spec-bp-text" data-i18n="spec_fc_protocol">Протокол регулятора: DShot300 (Bluejay RPM)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       COMPONENT INSPECTION MODAL DIALOG
+       ========================================================================== -->
+  <div class="modal-backdrop" id="component-modal">
+    <div class="modal-dialog corner-brackets">
+      <div class="modal-header">
+        <h3 id="modal-title" data-i18n="modal_component_details">Спецификация компонента</h3>
+        <button class="modal-btn-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-img-wrap">
+          <img id="modal-img" src="" alt="Part Image">
+        </div>
+        <div class="modal-specs-list" id="modal-specs"></div>
+        <p class="modal-desc-text" id="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FPV GOGGLE OSD SIMULATOR OVERLAY
+       ========================================================================== -->
+  <div class="fpv-osd-overlay" id="fpv-osd-overlay">
+    <button class="osd-exit-btn" id="btn-osd-exit">ВЫЙТИ ИЗ OSD [ESC]</button>
+    <div class="osd-hud-container">
+      <div class="osd-top-left">
+        <div>BATT: <span class="osd-volt-val">15.8V</span></div>
+        <div>DISARMED // ARMED</div>
+        <div>CURRENT: 4.8A</div>
+      </div>
+      <div class="osd-top-right">
+        <div>RSSI: <span class="osd-rssi-val">99%</span></div>
+        <div>CRAFT: PAVO25-PILOT</div>
+        <div>FLY TIME: <span class="osd-time-val">02:48</span></div>
+      </div>
+      <div class="osd-crosshair"></div>
+      <div class="osd-horizon-ladder"></div>
+      <div class="osd-bottom-left">
+        <div>4S LIPO 850MAH</div>
+        <div>MODE: ACRO AIR</div>
+      </div>
+      <div class="osd-bottom-right">
+        <div>CH: R8 (5917MHz)</div>
+        <div>PWR: 400mW</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SITE FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p data-i18n="footer_text">
+        © 2026 AERO-FPV // Создано для энтузиастов FPV пилотирования и аэрокосмической инженерии.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts: Three.js r128 & OrbitControls via CDN, then local scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/drone3d.js"></script>
+  <script src="js/assembly.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
