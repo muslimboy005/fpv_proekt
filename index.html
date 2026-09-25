@@ -13,45 +13,70 @@
   <!-- ==========================================================================
        TOP FIXED NAVIGATION BAR & CONTROLS
        ========================================================================== -->
-  <header class="header-nav">
+  <header class="header-nav" id="site-header">
     <div class="container nav-container">
-      <a href="#hero" class="brand-logo" id="brand-logo-link">
-        <div class="logo-badge">
+      <a href="#hero" class="brand-logo" id="brand-logo-link" aria-label="AERO-FPV">
+        <div class="logo-badge" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <span class="logo-text" data-i18n="nav_title">AERO-FPV // ТЕХНОЛОГИИ БПЛА</span>
+        <span class="logo-text">
+          <span class="logo-main">AERO-FPV</span>
+          <span class="logo-sub" data-i18n="nav_title_sub">Технологии БПЛА</span>
+        </span>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <ul class="nav-links">
-        <li><a href="#about-drone" class="nav-link" data-i18n="nav_about_drone">Что такое дрон?</a></li>
-        <li><a href="#drone-types" class="nav-link" data-i18n="nav_drone_types">Типы дронов</a></li>
-        <li><a href="#what-is-fpv" class="nav-link" data-i18n="nav_what_is_fpv">Что такое FPV?</a></li>
-        <li><a href="#my-drone" class="nav-link" data-i18n="nav_my_drone">Мой FPV-дрон</a></li>
-        <li><a href="#assembly-guide" class="nav-link" data-i18n="nav_assembly">Сборка дрона</a></li>
-        <li><a href="#final-3d-model" class="nav-link" data-i18n="nav_final_model">3D Дрон в сборе</a></li>
-      </ul>
+      <!-- Primary Navigation (desktop inline / mobile dropdown panel) -->
+      <nav class="nav-primary" id="primary-nav" aria-label="Main navigation" data-i18n-aria="nav_main_lbl">
+        <ul class="nav-links">
+          <li><a href="#about-drone" class="nav-link" data-i18n="nav_about_drone">Что такое дрон?</a></li>
+          <li><a href="#drone-types" class="nav-link" data-i18n="nav_drone_types">Типы дронов</a></li>
+          <li><a href="#what-is-fpv" class="nav-link" data-i18n="nav_what_is_fpv">Что такое FPV?</a></li>
+          <li><a href="#my-drone" class="nav-link" data-i18n="nav_my_drone">Мой FPV-дрон</a></li>
+          <li><a href="#assembly-guide" class="nav-link" data-i18n="nav_assembly">Сборка дрона</a></li>
+          <li><a href="#final-3d-model" class="nav-link" data-i18n="nav_final_model">3D Дрон в сборе</a></li>
+        </ul>
 
-      <!-- Controls: OSD Mode, Audio & Multilingual Switcher -->
+        <!-- Mobile-only mirrors of the HUD controls (hidden on desktop) -->
+        <div class="nav-mobile-controls">
+          <button type="button" class="btn-hud-control btn-hud-proxy" data-proxy="btn-osd-toggle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-3l-2.5-3h-3L8 17H5a3 3 0 0 1-3-3z"/></svg>
+            <span data-i18n="nav_osd_toggle_full">HUD OSD Режим</span>
+          </button>
+          <button type="button" class="btn-hud-control btn-hud-proxy" data-proxy="btn-sound-toggle">
+            <svg class="icon-sound-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+            <svg class="icon-sound-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
+            <span data-i18n="nav_sound_lbl">Звук</span>: <span class="sound-label-proxy">ON</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Controls: OSD Mode, Audio, Language, Mobile Menu -->
       <div class="nav-controls">
-        <button id="btn-osd-toggle" class="btn-hud-control" title="FPV Goggle OSD View">
-          <span>🕶️</span>
-          <span class="control-label" data-i18n="nav_osd_toggle">HUD OSD Режим</span>
+        <button type="button" id="btn-osd-toggle" class="btn-hud-control" title="HUD OSD" aria-label="HUD OSD" data-i18n-title="nav_osd_toggle_full" data-i18n-aria="nav_osd_toggle_full" aria-pressed="false">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-3l-2.5-3h-3L8 17H5a3 3 0 0 1-3-3z"/></svg>
+          <span class="control-label" data-i18n="nav_osd_toggle">HUD OSD</span>
         </button>
 
-        <button id="btn-sound-toggle" class="btn-hud-control" title="Toggle Sound FX">
-          <span>🔊</span>
+        <button type="button" id="btn-sound-toggle" class="btn-hud-control" title="Sound" aria-label="Sound" data-i18n-title="nav_sound_toggle" data-i18n-aria="nav_sound_toggle" aria-pressed="true">
+          <svg class="icon-sound-on" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+          <svg class="icon-sound-off" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
           <span class="sound-label">ON</span>
         </button>
 
         <!-- RU / UZ / EN Switcher -->
-        <div class="lang-switcher" role="group" aria-label="Language selection">
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <button class="lang-btn" data-lang="uz">UZ</button>
-          <button class="lang-btn" data-lang="en">EN</button>
+        <div class="lang-switcher" role="group" aria-label="Language selection" data-i18n-aria="nav_lang_lbl">
+          <button type="button" class="lang-btn active" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang-btn" data-lang="uz" aria-pressed="false">UZ</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
         </div>
+
+        <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" data-i18n-aria="nav_menu_lbl" aria-expanded="false" aria-controls="primary-nav">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+        </button>
       </div>
     </div>
   </header>
@@ -592,83 +617,107 @@
 
         <div class="parts-spec-grid">
           <!-- Frame -->
-          <div class="part-card corner-brackets" data-part-id="frame">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-frame-title" data-part-id="frame">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_frame.jpg" alt="Pavo25 Frame Kit">
+              <span class="part-index">01</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_frame.jpg" alt="Pavo25 Frame Kit"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_frame_t">Рама: BetaFPV Pavo25 Frame Kit</h4>
-            <p data-i18n="my_part_frame_d">Прочный аэродинамический корпус из полиамида PA12 с литыми дактами защиты пропеллеров, карбоновой пластиной 2.5 мм и толкающей геометрией (pusher). Колёсная база 108 мм.</p>
-            <div class="part-spec-tag" data-i18n="my_part_frame_spec">Колёсная база: 108 мм | PA12 + Carbon | ~68 г</div>
+            <div class="part-card-body">
+              <h4 id="part-frame-title" data-i18n="my_part_frame_t">Рама: BetaFPV Pavo25 Frame Kit</h4>
+              <p data-i18n="my_part_frame_d">Прочный аэродинамический корпус из полиамида PA12 с литыми дактами защиты пропеллеров, карбоновой пластиной 2.5 мм и толкающей геометрией (pusher). Колёсная база 108 мм.</p>
+              <div class="part-spec-tag" data-i18n="my_part_frame_spec">Колёсная база: 108 мм | PA12 + Carbon | ~68 г</div>
+            </div>
           </div>
 
           <!-- FC + ESC -->
-          <div class="part-card corner-brackets" data-part-id="fc">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-fc-title" data-part-id="fc">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_fc_esc.jpg" alt="F405 20A AIO">
+              <span class="part-index">02</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_fc.jpg" alt="F405 20A AIO"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_fc_t">FC + ESC: BetaFPV F405 AIO 20A V4</h4>
-            <p data-i18n="my_part_fc_d">Высокоинтегрированная плата 'всё-в-одном': полётный контроллер на STM32F405 в связке с 4-в-1 регулятором 20A (пиковый 25A) BLHeli_S/Bluejay для питания 2-4S.</p>
-            <div class="part-spec-tag" data-i18n="my_part_fc_spec">STM32F405 | ESC 20A BLHeli_S | 2S-4S LiPo</div>
+            <div class="part-card-body">
+              <h4 id="part-fc-title" data-i18n="my_part_fc_t">FC + ESC: BetaFPV F405 AIO 20A V4</h4>
+              <p data-i18n="my_part_fc_d">Высокоинтегрированная плата 'всё-в-одном': полётный контроллер на STM32F405 в связке с 4-в-1 регулятором 20A (пиковый 25A) BLHeli_S/Bluejay для питания 2-4S.</p>
+              <div class="part-spec-tag" data-i18n="my_part_fc_spec">STM32F405 | ESC 20A BLHeli_S | 2S-4S LiPo</div>
+            </div>
           </div>
 
           <!-- Motors -->
-          <div class="part-card corner-brackets" data-part-id="motor">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-motor-title" data-part-id="motor">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_motor.jpg" alt="1404 4500KV Motors">
+              <span class="part-index">03</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_motor.jpg" alt="1404 4500KV Motors"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_motor_t">Моторы: BetaFPV 1404 4500KV (4 шт)</h4>
-            <p data-i18n="my_part_motor_d">Фирменные моторы с двухцветным анодированием. Оптимальный крутящий момент и энергоэффективность для 2.5-дюймовых винтов в дактах на питании 3S/4S.</p>
-            <div class="part-spec-tag" data-i18n="my_part_motor_spec">KV: 4500KV | Статор: 14x4 мм | Вал: 1.5 мм</div>
+            <div class="part-card-body">
+              <h4 id="part-motor-title" data-i18n="my_part_motor_t">Моторы: BetaFPV 1404 4500KV (4 шт)</h4>
+              <p data-i18n="my_part_motor_d">Фирменные моторы с двухцветным анодированием. Оптимальный крутящий момент и энергоэффективность для 2.5-дюймовых винтов в дактах на питании 3S/4S.</p>
+              <div class="part-spec-tag" data-i18n="my_part_motor_spec">KV: 4500KV | Статор: 14x4 мм | Вал: 1.5 мм</div>
+            </div>
           </div>
 
           <!-- Props -->
-          <div class="part-card corner-brackets" data-part-id="props">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-props-title" data-part-id="props">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_props.jpg" alt="Gemfan D63 Props">
+              <span class="part-index">04</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_props.jpg" alt="Gemfan D63 Props"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_props_t">Пропеллеры: Gemfan D63 3-Blade</h4>
-            <p data-i18n="my_part_props_d">Специализированные малошумные 3-лопастные винты 63 мм, создающие увеличенную тягу в кольцевых воздуховодах и плавное управление на малом газу.</p>
-            <div class="part-spec-tag" data-i18n="my_part_props_spec">Диаметр: 63 мм | Шаг: 1.5' | T-Mount 1.5 мм</div>
+            <div class="part-card-body">
+              <h4 id="part-props-title" data-i18n="my_part_props_t">Пропеллеры: Gemfan D63 3-Blade</h4>
+              <p data-i18n="my_part_props_d">Специализированные малошумные 3-лопастные винты 63 мм, создающие увеличенную тягу в кольцевых воздуховодах и плавное управление на малом газу.</p>
+              <div class="part-spec-tag" data-i18n="my_part_props_spec">Диаметр: 63 мм | Шаг: 1.5' | T-Mount 1.5 мм</div>
+            </div>
           </div>
 
           <!-- Camera -->
-          <div class="part-card corner-brackets" data-part-id="cam">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-cam-title" data-part-id="cam">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_camera.jpg" alt="Nano FPV Camera">
+              <span class="part-index">05</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_cam.jpg" alt="Nano FPV Camera"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_cam_t">FPV-камера: Nano Camera</h4>
-            <p data-i18n="my_part_cam_d">Ультралёгкая аналоговая камера нано-формата с минимальной задержкой, естественной цветопередачей и регулируемым углом наклона в TPU-бампере.</p>
-            <div class="part-spec-tag" data-i18n="my_part_cam_spec">1200 TVL | CMOS | FOV: 160° | 3.5 г</div>
+            <div class="part-card-body">
+              <h4 id="part-cam-title" data-i18n="my_part_cam_t">FPV-камера: Nano Camera</h4>
+              <p data-i18n="my_part_cam_d">Ультралёгкая аналоговая камера нано-формата с минимальной задержкой, естественной цветопередачей и регулируемым углом наклона в TPU-бампере.</p>
+              <div class="part-spec-tag" data-i18n="my_part_cam_spec">1200 TVL | CMOS | FOV: 160° | 3.5 г</div>
+            </div>
           </div>
 
           <!-- VTX -->
-          <div class="part-card corner-brackets" data-part-id="vtx">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-vtx-title" data-part-id="vtx">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_vtx.jpg" alt="Tiny Rocket VTX">
+              <span class="part-index">06</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_vtx.jpg" alt="Tiny Rocket VTX"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_vtx_t">Видеопередатчик: Tiny Rocket VTX</h4>
-            <p data-i18n="my_part_vtx_d">Компактный видеопередатчик с регулируемой мощностью до 400 мВт и поддержкой SmartAudio для настройки каналов и частот прямо с пульта через экранное меню.</p>
-            <div class="part-spec-tag" data-i18n="my_part_vtx_spec">5.8 GHz | 25-400 mW | SmartAudio</div>
+            <div class="part-card-body">
+              <h4 id="part-vtx-title" data-i18n="my_part_vtx_t">Видеопередатчик: Tiny Rocket VTX</h4>
+              <p data-i18n="my_part_vtx_d">Компактный видеопередатчик с регулируемой мощностью до 400 мВт и поддержкой SmartAudio для настройки каналов и частот прямо с пульта через экранное меню.</p>
+              <div class="part-spec-tag" data-i18n="my_part_vtx_spec">5.8 GHz | 25-400 mW | SmartAudio</div>
+            </div>
           </div>
 
           <!-- LED Strip -->
-          <div class="part-card corner-brackets" data-part-id="led">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-led-title" data-part-id="led">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_led_blue.jpg" alt="Neon LED Strip">
+              <span class="part-index">07</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_led.jpg" alt="Neon LED Strip"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_led_t">LED подсветка: Pavo25 Neon Strip</h4>
-            <p data-i18n="my_part_led_d">Гибкая яркая светодиодная лента (бирюзовая / синяя и красная), огибающая кольца дактов. Придаёт футуристичный вид и облегчает визуальную ориентацию в сумерках.</p>
-            <div class="part-spec-tag" data-i18n="my_part_led_spec">Бирюзовый / Красный | 5V DC | Контур дактов</div>
+            <div class="part-card-body">
+              <h4 id="part-led-title" data-i18n="my_part_led_t">LED подсветка: Pavo25 Neon Strip</h4>
+              <p data-i18n="my_part_led_d">Гибкая яркая светодиодная лента (бирюзовая / синяя и красная), огибающая кольца дактов. Придаёт футуристичный вид и облегчает визуальную ориентацию в сумерках.</p>
+              <div class="part-spec-tag" data-i18n="my_part_led_spec">Бирюзовый / Красный | 5V DC | Контур дактов</div>
+            </div>
           </div>
 
           <!-- Battery -->
-          <div class="part-card corner-brackets" data-part-id="battery">
+          <div class="part-card corner-brackets" tabindex="0" role="button" aria-labelledby="part-battery-title" data-part-id="battery">
             <div class="part-img-holder">
-              <img src="assets/images/user/parts/part_battery.jpg" alt="4S 850mAh Battery">
+              <span class="part-index">08</span>
+              <img loading="lazy" decoding="async" src="assets/images/parts_hd/part_battery.jpg" alt="4S 850mAh Battery"><span class="part-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span>
             </div>
-            <h4 data-i18n="my_part_bat_t">Аккумулятор: 4S 850mAh 75C LiPo</h4>
-            <p data-i18n="my_part_bat_d">Высокотоковый литий-полимерный аккумулятор с разъёмом XT30. Обеспечивает до 6-8 минут уверенного плавного полёта с установленной экшн-камерой.</p>
-            <div class="part-spec-tag" data-i18n="my_part_bat_spec">850 mAh | 14.8V (4S) | 75C/150C | XT30</div>
+            <div class="part-card-body">
+              <h4 id="part-battery-title" data-i18n="my_part_bat_t">Аккумулятор: 4S 850mAh 75C LiPo</h4>
+              <p data-i18n="my_part_bat_d">Высокотоковый литий-полимерный аккумулятор с разъёмом XT30. Обеспечивает до 6-8 минут уверенного плавного полёта с установленной экшн-камерой.</p>
+              <div class="part-spec-tag" data-i18n="my_part_bat_spec">850 mAh | 14.8V (4S) | 75C/150C | XT30</div>
+            </div>
           </div>
         </div>
       </div>
@@ -686,45 +735,74 @@
         </p>
 
         <!-- Interactive Assembly Wizard Card -->
-        <div class="assembly-wizard-card corner-brackets">
-          <!-- Step Selector Chips (1 to 13) -->
-          <div class="steps-nav-bar" id="assembly-steps-nav"></div>
+        <div class="assembly-wizard-card corner-brackets" id="assembly-wizard">
 
-          <!-- Progress Bar Indicator -->
-          <div class="assembly-progress-wrapper">
-            <div class="progress-track">
+          <!-- Progress summary -->
+          <div class="wizard-topbar">
+            <div class="wizard-progress-label">
+              <span id="assembly-progress-lbl" data-i18n="sec5_progress_lbl">Прогресс сборки</span>
+              <strong id="assembly-progress-text">1 / 13</strong>
+            </div>
+            <div class="progress-track" id="assembly-progress-bar" role="progressbar" aria-labelledby="assembly-progress-lbl assembly-progress-text" aria-valuemin="0" aria-valuemax="100" aria-valuenow="8">
               <div class="progress-fill" id="assembly-progress-fill"></div>
             </div>
-            <div class="progress-percent" id="assembly-progress-text">8%</div>
+            <div class="progress-percent" id="assembly-progress-pct">8%</div>
           </div>
 
-          <!-- Main Interactive Assembly Viewer -->
-          <div class="assembly-main-grid">
-            <!-- Left: Technical Vector Schematic Frame -->
-            <div class="schematic-viewer-frame corner-brackets" id="assembly-schematic-view"></div>
+          <div class="wizard-layout">
+            <!-- Left: named stage list (rendered by assembly.js) -->
+            <aside class="steps-sidebar" aria-labelledby="steps-sidebar-title">
+              <div class="steps-sidebar-title" id="steps-sidebar-title" data-i18n="sec5_steps_lbl">Этапы сборки</div>
+              <ol class="steps-list" id="assembly-steps-nav"></ol>
+            </aside>
 
-            <!-- Right: Step Descriptions & Tips -->
-            <div class="assembly-details-box">
-              <span class="step-badge-counter" id="assembly-step-badge">ЭТАП 1 / 13</span>
-              <h3 class="assembly-step-h3" id="assembly-step-title">1. Подготовка и сборка рамы</h3>
-              <p class="assembly-step-body" id="assembly-step-desc">Распаковка комплекта Pavo25 Frame Kit...</p>
-
-              <!-- Engineering Tip Box -->
-              <div class="engineering-tip-box">
-                <strong data-i18n="sec5_tech_note">Инженерная рекомендация:</strong>
-                <p id="assembly-step-note">Обязательно используйте антивибрационные силиконовые втулки...</p>
+            <!-- Right: schematic + step details -->
+            <div class="wizard-main">
+              <div class="schematic-viewer-frame corner-brackets">
+                <div class="schematic-topbar">
+                  <span class="schematic-tag"><span data-i18n="sec5_schematic_lbl">Схема этапа</span> // <span id="schematic-step-code">01</span></span>
+                  <span class="schematic-topbar-right">
+                    <span class="schematic-caption" id="schematic-caption"></span>
+                    <button type="button" class="schematic-zoom-btn" id="schematic-zoom-btn" title="Увеличить схему" aria-label="Увеличить схему" data-i18n-title="sec5_zoom_lbl" data-i18n-aria="sec5_zoom_lbl">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                    </button>
+                  </span>
+                </div>
+                <div class="schematic-canvas" id="assembly-schematic-view"></div>
               </div>
 
-              <!-- Tools Needed Box -->
-              <div class="tools-needed-box">
-                <strong data-i18n="sec5_tools_needed">Необходимый инструмент & материалы:</strong>
-                <span id="assembly-step-tools">Шестигранные отвёртки M2...</span>
-              </div>
+              <div class="assembly-details-box">
+                <div class="assembly-details-main">
+                  <span class="step-badge-counter" id="assembly-step-badge">ЭТАП 1 / 13</span>
+                  <h3 class="assembly-step-h3" id="assembly-step-title"></h3>
+                  <p class="assembly-step-body" id="assembly-step-desc"></p>
+                </div>
 
-              <!-- Navigation Prev / Next Buttons -->
-              <div class="assembly-nav-buttons">
-                <button class="btn-nav-step" id="btn-step-prev" data-i18n="sec5_btn_prev">← Предыдущий шаг</button>
-                <button class="btn-nav-step" id="btn-step-next" data-i18n="sec5_btn_next">Следующий шаг →</button>
+                <div class="assembly-details-aside">
+                  <!-- Engineering Tip Box -->
+                  <div class="engineering-tip-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.7 18.4-8.5-14.8a1.4 1.4 0 0 0-2.4 0L2.3 18.4A1.4 1.4 0 0 0 3.5 20.5h17a1.4 1.4 0 0 0 1.2-2.1z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    <div>
+                      <strong data-i18n="sec5_tech_note">Инженерная рекомендация:</strong>
+                      <p id="assembly-step-note"></p>
+                    </div>
+                  </div>
+
+                  <!-- Tools Needed Box -->
+                  <div class="tools-needed-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    <div>
+                      <strong data-i18n="sec5_tools_needed">Необходимый инструмент &amp; материалы:</strong>
+                      <span id="assembly-step-tools"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Navigation Prev / Next Buttons -->
+                <div class="assembly-nav-buttons">
+                  <button type="button" class="btn-nav-step" id="btn-step-prev" data-i18n="sec5_btn_prev">← Предыдущий шаг</button>
+                  <button type="button" class="btn-nav-step primary" id="btn-step-next" data-i18n="sec5_btn_next">Следующий шаг →</button>
+                </div>
               </div>
             </div>
           </div>
@@ -801,13 +879,26 @@
   </main>
 
   <!-- ==========================================================================
+       SCHEMATIC LIGHTBOX (full-screen view of the current assembly schematic)
+       ========================================================================== -->
+  <div class="schematic-lightbox" id="schematic-lightbox" role="dialog" aria-modal="true" aria-labelledby="schematic-lightbox-title">
+    <div class="schematic-lightbox-bar">
+      <span class="schematic-tag"><span data-i18n="sec5_schematic_lbl">Схема этапа</span> // <span id="schematic-lightbox-code">01</span></span>
+      <span class="schematic-lightbox-title" id="schematic-lightbox-title"></span>
+      <button type="button" class="schematic-lightbox-close" id="schematic-lightbox-close" aria-label="Закрыть" data-i18n-aria="modal_close">&times;</button>
+    </div>
+    <div class="schematic-lightbox-stage" id="schematic-lightbox-stage"></div>
+    <p class="schematic-lightbox-hint" data-i18n="sec5_zoom_hint">Поверните телефон горизонтально или используйте жест масштабирования</p>
+  </div>
+
+  <!-- ==========================================================================
        COMPONENT INSPECTION MODAL DIALOG
        ========================================================================== -->
   <div class="modal-backdrop" id="component-modal">
-    <div class="modal-dialog corner-brackets">
+    <div class="modal-dialog corner-brackets" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal-header">
         <h3 id="modal-title" data-i18n="modal_component_details">Спецификация компонента</h3>
-        <button class="modal-btn-close" id="modal-close-btn">&times;</button>
+        <button type="button" class="modal-btn-close" id="modal-close-btn" aria-label="Close" data-i18n-aria="modal_close">&times;</button>
       </div>
       <div class="modal-body">
         <div class="modal-img-wrap">
@@ -864,6 +955,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="js/translations.js"></script>
   <script src="js/drone3d.js"></script>
+  <script src="js/schematics.js"></script>
   <script src="js/assembly.js"></script>
   <script src="js/app.js"></script>
 </body>

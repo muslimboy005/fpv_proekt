@@ -105,7 +105,9 @@ function setLanguage(lang) {
   // Update active state in UI buttons
   const langBtns = document.querySelectorAll('.lang-btn');
   langBtns.forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    const isActive = btn.getAttribute('data-lang') === lang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', String(isActive));
   });
 
   const dict = window.TRANSLATIONS[lang];
@@ -121,6 +123,16 @@ function setLanguage(lang) {
         el.innerText = dict[key];
       }
     }
+  });
+
+  // Localized attributes (aria-label / title) for icon-only controls
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (dict[key]) el.setAttribute('aria-label', dict[key]);
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (dict[key]) el.setAttribute('title', dict[key]);
   });
 
   // Update Assembly Guide text if initialized
@@ -171,6 +183,8 @@ function initOsdSimulation() {
         osdOverlay.classList.toggle('active', osdActive);
       }
       toggleBtn.classList.toggle('active', osdActive);
+      toggleBtn.setAttribute('aria-pressed', String(osdActive));
+      if (window.syncHudProxies) window.syncHudProxies();
       window.playSfx(osdActive ? 'boot' : 'click');
     });
   }
@@ -179,7 +193,11 @@ function initOsdSimulation() {
     exitBtn.addEventListener('click', () => {
       osdActive = false;
       if (osdOverlay) osdOverlay.classList.remove('active');
-      if (toggleBtn) toggleBtn.classList.remove('active');
+      if (toggleBtn) {
+        toggleBtn.classList.remove('active');
+        toggleBtn.setAttribute('aria-pressed', 'false');
+      }
+      if (window.syncHudProxies) window.syncHudProxies();
       window.playSfx('click');
     });
   }
@@ -207,7 +225,7 @@ function initOsdSimulation() {
 const COMPONENT_DETAILS = {
   frame: {
     title: { ru: "Рама BetaFPV Pavo25 Frame Kit", uz: "BetaFPV Pavo25 ramasi", en: "BetaFPV Pavo25 Frame Kit" },
-    img: "assets/images/user/parts/part_frame.jpg",
+    img: "assets/images/parts_hd/part_frame.jpg",
     specs: [
       { k: "Wheelbase", v: "108 mm" },
       { k: "Material", v: "PA12 Injection Monocoque + 2.5mm Carbon" },
@@ -223,7 +241,7 @@ const COMPONENT_DETAILS = {
   },
   fc: {
     title: { ru: "F405 AIO 20A V4 (FC + ESC)", uz: "F405 AIO 20A V4 (FC + ESC)", en: "BetaFPV F405 AIO 20A V4" },
-    img: "assets/images/user/parts/part_fc_esc.jpg",
+    img: "assets/images/parts_hd/part_fc.jpg",
     specs: [
       { k: "MCU", v: "STM32F405RGT6 (168MHz)" },
       { k: "ESC Current", v: "20A Continuous, 25A Burst" },
@@ -239,7 +257,7 @@ const COMPONENT_DETAILS = {
   },
   motor: {
     title: { ru: "Моторы BetaFPV 1404 4500KV", uz: "BetaFPV 1404 4500KV motorlari", en: "BetaFPV 1404 4500KV Motors" },
-    img: "assets/images/user/parts/part_motor.jpg",
+    img: "assets/images/parts_hd/part_motor.jpg",
     specs: [
       { k: "KV", v: "4500 KV" },
       { k: "Stator Size", v: "1404 (14x4 mm)" },
@@ -255,7 +273,7 @@ const COMPONENT_DETAILS = {
   },
   props: {
     title: { ru: "Пропеллеры Gemfan D63 3-Blade", uz: "Gemfan D63 3 kurakli vintlari", en: "Gemfan D63 3-Blade Propellers" },
-    img: "assets/images/user/parts/part_props.jpg",
+    img: "assets/images/parts_hd/part_props.jpg",
     specs: [
       { k: "Diameter", v: "63 mm / 2.5 inch" },
       { k: "Pitch", v: "1.5 inch" },
@@ -271,7 +289,7 @@ const COMPONENT_DETAILS = {
   },
   cam: {
     title: { ru: "FPV-камера Nano Camera", uz: "Nano FPV kamerasi", en: "Nano FPV Camera" },
-    img: "assets/images/user/parts/part_camera.jpg",
+    img: "assets/images/parts_hd/part_cam.jpg",
     specs: [
       { k: "Resolution", v: "1200 TVL" },
       { k: "Sensor", v: "1/3' CMOS" },
@@ -287,7 +305,7 @@ const COMPONENT_DETAILS = {
   },
   vtx: {
     title: { ru: "Видеопередатчик Tiny Rocket VTX", uz: "Tiny Rocket video uzatgichi", en: "Tiny Rocket 5.8GHz VTX" },
-    img: "assets/images/user/parts/part_vtx.jpg",
+    img: "assets/images/parts_hd/part_vtx.jpg",
     specs: [
       { k: "Frequency", v: "5.8 GHz (48 Channels)" },
       { k: "Power Output", v: "PIT / 25 / 100 / 200 / 400 mW" },
@@ -303,7 +321,7 @@ const COMPONENT_DETAILS = {
   },
   battery: {
     title: { ru: "Аккумулятор 4S 850mAh 75C LiPo", uz: "4S 850mAh 75C LiPo akkumulyatori", en: "4S 850mAh 75C LiPo Battery" },
-    img: "assets/images/user/parts/part_battery.jpg",
+    img: "assets/images/parts_hd/part_battery.jpg",
     specs: [
       { k: "Voltage", v: "14.8V (4S1P)" },
       { k: "Capacity", v: "850 mAh / 12.58 Wh" },
@@ -319,7 +337,7 @@ const COMPONENT_DETAILS = {
   },
   led: {
     title: { ru: "LED подсветка Pavo25 Neon Strip", uz: "Pavo25 neon LED tasmasi", en: "Pavo25 Neon LED Strip" },
-    img: "assets/images/user/parts/part_led_blue.jpg",
+    img: "assets/images/parts_hd/part_led.jpg",
     specs: [
       { k: "Voltage", v: "5V DC" },
       { k: "Colors", v: "Cyan / Blue & Red" },
@@ -361,7 +379,10 @@ window.onDroneComponentSelected = function(id) {
   }
 
   if (modal) {
+    window.__modalOpener = document.activeElement;
     modal.classList.add('active');
+    const closeBtn = document.getElementById('modal-close-btn');
+    if (closeBtn) closeBtn.focus();
     window.playSfx('click');
   }
 };
@@ -369,15 +390,19 @@ window.onDroneComponentSelected = function(id) {
 function initModalEvents() {
   const modal = document.getElementById('component-modal');
   const closeBtn = document.getElementById('modal-close-btn');
-  const backdrop = document.getElementById('modal-backdrop');
 
   const closeModal = () => {
-    if (modal) modal.classList.remove('active');
+    if (!modal || !modal.classList.contains('active')) return;
+    modal.classList.remove('active');
+    const opener = window.__modalOpener;
+    if (opener && typeof opener.focus === 'function' && document.contains(opener)) opener.focus();
+    window.__modalOpener = null;
     window.playSfx('click');
   };
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (backdrop) backdrop.addEventListener('click', closeModal);
+  // Click on the dark backdrop (outside the dialog) closes too
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
@@ -387,10 +412,17 @@ function initModalEvents() {
 
   // Also bind all component cards in section 4 to open modal
   document.querySelectorAll('.part-card').forEach(card => {
-    card.addEventListener('click', () => {
+    const open = () => {
       const partId = card.getAttribute('data-part-id');
       if (partId && COMPONENT_DETAILS[partId]) {
         window.onDroneComponentSelected(partId);
+      }
+    };
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
       }
     });
   });
@@ -404,10 +436,12 @@ function initSoundToggle() {
   soundBtn.addEventListener('click', () => {
     window.soundEnabled = !window.soundEnabled;
     soundBtn.classList.toggle('muted', !window.soundEnabled);
+    soundBtn.setAttribute('aria-pressed', String(window.soundEnabled));
     const label = soundBtn.querySelector('.sound-label');
     if (label) {
       label.innerText = window.soundEnabled ? 'ON' : 'OFF';
     }
+    if (window.syncHudProxies) window.syncHudProxies();
     if (window.soundEnabled) {
       window.playSfx('click');
     }
@@ -437,6 +471,93 @@ function initSignalChainSimulation() {
   }, 3200);
 }
 
+// Mobile Navigation (hamburger panel) + HUD control mirrors
+window.syncHudProxies = function() {
+  document.querySelectorAll('.btn-hud-proxy[data-proxy]').forEach(proxy => {
+    const src = document.getElementById(proxy.getAttribute('data-proxy'));
+    if (!src) return;
+    proxy.classList.toggle('active', src.classList.contains('active'));
+    proxy.classList.toggle('muted', src.classList.contains('muted'));
+    proxy.setAttribute('aria-pressed', src.getAttribute('aria-pressed') || 'false');
+    const lbl = proxy.querySelector('.sound-label-proxy');
+    const srcLbl = src.querySelector('.sound-label');
+    if (lbl && srcLbl) lbl.innerText = srcLbl.innerText;
+  });
+};
+
+function initMobileNav() {
+  const header = document.getElementById('site-header');
+  const burger = document.getElementById('nav-burger');
+  const panel = document.getElementById('primary-nav');
+  if (!header || !burger || !panel) return;
+
+  const setOpen = (open) => {
+    header.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  };
+  const isOpen = () => header.classList.contains('menu-open');
+
+  burger.addEventListener('click', () => {
+    setOpen(!isOpen());
+    window.playSfx('click');
+  });
+
+  // Close after choosing a section (nav links and the brand logo)
+  header.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  // Close on Escape / outside click / resize back to desktop
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) {
+      setOpen(false);
+      burger.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (isOpen() && !header.contains(e.target)) setOpen(false);
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1200 && isOpen()) setOpen(false);
+  });
+
+  // Mirrored HUD buttons inside the panel forward clicks to the real controls
+  document.querySelectorAll('.btn-hud-proxy[data-proxy]').forEach(proxy => {
+    proxy.addEventListener('click', () => {
+      const src = document.getElementById(proxy.getAttribute('data-proxy'));
+      if (src) src.click();
+      window.syncHudProxies();
+    });
+  });
+  window.syncHudProxies();
+}
+
+// Highlight the nav link of the section currently in view
+function initScrollSpy() {
+  const links = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  const byId = new Map();
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const section = document.getElementById(id);
+    if (section) byId.set(section, link);
+  });
+
+  const visible = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) visible.add(entry.target);
+      else visible.delete(entry.target);
+    });
+    links.forEach(l => l.classList.remove('active'));
+    const current = Array.from(byId.keys()).find(section => visible.has(section));
+    if (current) byId.get(current).classList.add('active');
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+  byId.forEach((_, section) => observer.observe(section));
+}
+
 // DOM Ready Bootstrap
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Language Buttons
@@ -459,6 +580,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Sound toggle
   initSoundToggle();
+
+  // 5b. Mobile navigation + scroll spy
+  initMobileNav();
+  initScrollSpy();
 
   // 6. OSD Simulation
   initOsdSimulation();
