@@ -689,7 +689,7 @@ section[id] {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 36px;
-  margin-bottom: 56px;
+  margin-bottom: 28px;
 }
 
 .about-text-lead {
@@ -706,6 +706,96 @@ section[id] {
   color: var(--text-muted);
   margin-bottom: 16px;
   line-height: 1.7;
+}
+
+/* FPV definition block */
+.fpv-definition {
+  margin: 0 0 56px;
+  background: var(--bg-card);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-cyan);
+  border-radius: 10px;
+  padding: 26px 28px;
+}
+
+.fpv-definition-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.fpv-definition-abbr {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: #041014;
+  background: var(--accent-cyan);
+  padding: 12px 14px;
+  border-radius: 8px;
+  box-shadow: 0 0 18px var(--accent-cyan-glow);
+}
+
+.fpv-definition h3 {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.fpv-definition-head p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 900px;
+}
+
+.fpv-facts {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.fpv-facts li {
+  display: flex;
+  gap: 12px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.fpv-facts li strong {
+  color: var(--text-main);
+}
+
+.fpv-facts svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  color: var(--accent-cyan);
+}
+
+@media (max-width: 640px) {
+  .fpv-definition {
+    padding: 18px;
+  }
+  .fpv-definition-head {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .fpv-facts {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Civil Applications Grid */
