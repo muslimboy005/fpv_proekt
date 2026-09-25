@@ -10,7 +10,18 @@
  */
 
 // Global State
-window.currentLanguage = localStorage.getItem('aero_fpv_lang') || 'ru';
+const SUPPORTED_LANGS = ['ru', 'uz', 'en'];
+
+function getSavedLanguage() {
+  try {
+    const saved = localStorage.getItem('aero_fpv_lang');
+    if (SUPPORTED_LANGS.includes(saved)) return saved;
+  } catch (e) {}
+  const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
+  return SUPPORTED_LANGS.includes(browserLang) ? browserLang : 'ru';
+}
+
+window.currentLanguage = getSavedLanguage();
 window.soundEnabled = true;
 
 // Web Audio API Synthesizer
@@ -84,7 +95,9 @@ window.playSfx = function(type) {
 function setLanguage(lang) {
   if (!window.TRANSLATIONS || !window.TRANSLATIONS[lang]) return;
   window.currentLanguage = lang;
-  localStorage.setItem('aero_fpv_lang', lang);
+  try {
+    localStorage.setItem('aero_fpv_lang', lang);
+  } catch (e) {}
 
   // Update HTML lang attribute
   document.documentElement.lang = lang;

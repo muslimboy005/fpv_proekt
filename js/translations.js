@@ -5,6 +5,10 @@
 
 const TRANSLATIONS = {
   ru: {
+    page_title: "AERO-FPV // Мир FPV дронов & BetaFPV Pavo25 Cinewhoop",
+    lbl_features: "Особенности:",
+    lbl_application: "Применение:",
+    osd_exit: "ВЫЙТИ ИЗ OSD [ESC]",
     // Navigation & Header
     nav_title: "AERO-FPV // ТЕХНОЛОГИИ БПЛА",
     nav_about_drone: "Что такое дрон?",
@@ -319,6 +323,10 @@ const TRANSLATIONS = {
   },
 
   uz: {
+    page_title: "AERO-FPV // FPV dronlar olami & BetaFPV Pavo25 Cinewhoop",
+    lbl_features: "Xususiyatlari:",
+    lbl_application: "Qo‘llanilishi:",
+    osd_exit: "OSD REJIMIDAN CHIQISH [ESC]",
     // Navigation & Header
     nav_title: "AERO-FPV // UAV TEXNOLOGIYALARI",
     nav_about_drone: "Dron nima?",
@@ -633,6 +641,10 @@ const TRANSLATIONS = {
   },
 
   en: {
+    page_title: "AERO-FPV // The World of FPV Drones & BetaFPV Pavo25 Cinewhoop",
+    lbl_features: "Features:",
+    lbl_application: "Applications:",
+    osd_exit: "EXIT OSD [ESC]",
     // Navigation & Header
     nav_title: "AERO-FPV // UAV ENGINEERING",
     nav_about_drone: "What is a Drone?",
@@ -946,3 +958,5 @@ const TRANSLATIONS = {
     footer_text: "© 2026 AERO-FPV // Engineered for FPV Pilots and Aerospace Enthusiasts."
   }
 };
+
+window.TRANSLATIONS = TRANSLATIONS;
